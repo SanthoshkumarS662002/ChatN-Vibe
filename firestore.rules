@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() { 
+      return request.auth != null; 
+    }
+
+    // Sessions - allow all authenticated users to read and create
+    match /sessions/{sessionId} {
+      allow read, create: if isAuthenticated();
+      allow update, delete: if isAuthenticated();
+    }
+
+    // Queue - allow all authenticated users full access
+    match /queue/{userId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Messages - allow all authenticated users to read and write
+    match /messages/{messageId} {
+      allow read, create: if isAuthenticated();
+      allow update, delete: if isAuthenticated();
+    }
+    
+    // Reports
+    match /reports/{reportId} { 
+      allow create: if isAuthenticated(); 
+    }
+    
+    // Bans
+    match /bans/{banId} { 
+      allow read: if isAuthenticated(); 
+    }
+    
+    // Consents
+    match /consents/{consentId} { 
+      allow create: if isAuthenticated(); 
+    }
+
+    // Users (for ban status)
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId;
+    }
+  }
+}
