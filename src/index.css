@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* Custom variant for class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: rgb(249 250 251);
+  /* gray-50 */
+  --foreground: rgb(17 24 39);
+  /* gray-900 */
+  --card: rgb(255 255 255);
+  --card-foreground: rgb(17 24 39);
+  --primary: rgb(59 130 246);
+  /* blue-500 */
+  --primary-foreground: rgb(255 255 255);
+  --input: rgb(243 244 246);
+  /* gray-100 */
+  --ring: rgb(59 130 246);
+  --muted-foreground: rgb(107 114 128);
+  /* gray-500 */
+}
+
+.dark {
+  --background: rgb(17 24 39);
+  /* gray-900 */
+  --foreground: rgb(255 255 255);
+  --card: rgb(31 41 55);
+  /* gray-800 */
+  --card-foreground: rgb(255 255 255);
+  --primary: rgb(59 130 246);
+  /* blue-500 */
+  --primary-foreground: rgb(255 255 255);
+  --input: rgb(55 65 81);
+  /* gray-700 */
+  --ring: rgb(59 130 246);
+  --muted-foreground: rgb(156 163 175);
+  /* gray-400 */
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased transition-colors duration-300;
+  }
+}
