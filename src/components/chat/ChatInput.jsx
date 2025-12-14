@@ -28,6 +28,12 @@ const ChatInput = ({ onSendMessage }) => {
             setMessage('');
             setShowEmojiPicker(false);
             setTyping(false);
+
+            // Keep focus to prevent keyboard from closing on mobile
+            requestAnimationFrame(() => {
+                textareaRef.current?.focus();
+            });
+
             if (typingTimeoutRef.current) {
                 clearTimeout(typingTimeoutRef.current);
             }
